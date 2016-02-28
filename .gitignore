@@ -1,0 +1,15 @@
+*~
+*#
+__pycache__
+*.pyc
+perf.data
+src/cpuinfo*
+src/cpupol.h
+src/tags
+src/cscope.*
+bin/cpupol.py
+bin/*.o
+bin/fxmark
+bin/root
+bin/.tmp
+logs/
