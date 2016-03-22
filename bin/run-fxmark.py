@@ -36,25 +36,40 @@ class Runner(object):
     def __init__(self, \
                  core_grain = CORE_COARSE_GRAIN, \
                  pfm_lvl = PerfMon.LEVEL_LOW, \
-                 run_filter = ("*", "*", "*", "*")):
+                 run_filter = ("*", "*", "*", "*", "*")):
         # run config
         self.CORE_GRAIN    = core_grain
         self.PERFMON_LEVEL = pfm_lvl
-        self.FILTER        = run_filter # media, fs, bench, ncore
+        self.FILTER        = run_filter # media, directio, fs, bench, ncore
         self.DRYRUN        = False
         self.DEBUG_OUT     = False
 
         # bench config
         self.DISK_SIZE     = "32G"
         self.DURATION      = 30 # seconds
+        self.DIRECTIOS     = ["buffered", "directio"]  # enable directio except tmpfs -> nodirectio 
         self.MEDIA_TYPES   = ["ssd", "hdd", "nvme", "mem"]
-        self.FS_TYPES      = ["tmpfs",
+        self.FS_TYPES      = [
+#        self.FS_TYPES      = ["tmpfs",
                               "ext4", "ext4_no_jnl",
                               "xfs",
                               "btrfs", "f2fs",
                               # "jfs", "reiserfs", "ext2", "ext3",
         ]
         self.BENCH_TYPES   = [
+            # write/write
+            "DWAL",
+            "DWOL",
+            "DWOM",
+            "DWSL",
+            "MWRL",
+            "MWRM",
+            "MWCL",
+            "MWCM",
+            "MWUM",
+            "MWUL",
+            "DWTL",
+
             # filebench
             "filebench_varmail",
             "filebench_oltp",
@@ -62,19 +77,6 @@ class Runner(object):
 
             # dbench
             "dbench_client",
-
-            # write/write
-            "MWRL",
-            "DWOM",
-            "MWRM",
-            "DWSL",
-            "DWAL",
-            "DWOL",
-            "MWCL",
-            "MWCM",
-            "MWUM",
-            "MWUL",
-            "DWTL",
 
             # read/read
             "MRPL",
@@ -178,6 +180,7 @@ class Runner(object):
                 self.log(l.decode("utf-8").strip())
         self.log("### DISK_SIZE      = %s"   % self.DISK_SIZE)
         self.log("### DURATION       = %ss"  % self.DURATION)
+        self.log("### DIRECTIO       = %s"   % ','.join(self.DIRECTIOS))
         self.log("### MEDIA_TYPES    = %s"   % ','.join(self.MEDIA_TYPES))
         self.log("### FS_TYPES       = %s"   % ','.join(self.FS_TYPES))
         self.log("### BENCH_TYPES    = %s"   % ','.join(self.BENCH_TYPES))
@@ -386,15 +389,16 @@ class Runner(object):
         for ncore in sorted(self.ncores, reverse=True):
             for bench in self.BENCH_TYPES:
                 for media in self.MEDIA_TYPES:
-                    for fs in self.FS_TYPES:
-                        if fs == "tmpfs" and media != "mem":
-                            continue
-                        mount_fn = self.HOWTO_MOUNT.get(fs, None)
-                        if not mount_fn:
-                            continue
-                        if self._match_config(self.FILTER, \
-                                              (media, fs, bench, str(ncore))):
-                            yield(media, fs, bench, ncore)
+                    for dio in self.DIRECTIOS:
+                        for fs in self.FS_TYPES:
+                            if fs == "tmpfs" and media != "mem":
+                                continue
+                            mount_fn = self.HOWTO_MOUNT.get(fs, None)
+                            if not mount_fn:
+                                continue
+                            if self._match_config(self.FILTER, \
+                                                  (media, fs, dio, bench, str(ncore))):
+                                yield(media, dio, fs, bench, ncore)
 
     def fxmark_env(self):
         env = ' '.join(["PERFMON_LEVEL=%s" % self.PERFMON_LEVEL,
@@ -409,17 +413,27 @@ class Runner(object):
             return (self.dbench_path, bench[len("dbench_"):])
         return (self.fxmark_path, bench)
 
-    def fxmark(self, media, fs, bench, ncore, nfg, nbg):
+    def fxmark(self, media, dio, fs, bench, ncore, nfg, nbg):
         self.perfmon_log = os.path.normpath(
             os.path.join(self.log_dir,
                          '.'.join([media, fs, bench, str(nfg), "pm"])))
         (bin, type) = self.get_bin_type(bench)
+        directio = '1' if dio is "directio" else '0'
+
+        if directio is '1':
+            if fs is "tmpfs": 
+                print("INFO : DirectIO under tmpfs disabled by default")
+                directio='0';
+            else: 
+                print("INFO : DirectIO Enabled")
+
         cmd = ' '.join([self.fxmark_env(),
                         bin,
                         "--type", type,
                         "--ncore", str(ncore),
                         "--nbg",  str(nbg),
                         "--duration", str(self.DURATION),
+                        "--directio", directio,
                         "--root", self.test_root,
                         "--profbegin", "\"%s\"" % self.perfmon_start,
                         "--profend",   "\"%s\"" % self.perfmon_stop,
@@ -440,21 +454,21 @@ class Runner(object):
         try:
             cnt = -1
             self.log_start()
-            for (cnt, (media, fs, bench, ncore)) in enumerate(self.gen_config()):
+            for (cnt, (media, dio, fs, bench, ncore)) in enumerate(self.gen_config()):
                 (ncore, nbg) = self.add_bg_worker_if_needed(bench, ncore)
                 nfg = ncore - nbg
 
                 if self.DRYRUN:
-                    self.log("## %s:%s:%s:%s" % (media, fs, bench, nfg))
+                    self.log("## %s:%s:%s:%s:%s" % (media, fs, bench, nfg, dio))
                     continue
 
                 self.prepre_work(ncore)
                 if not self.mount(media, fs, self.test_root):
                     self.log("# Fail to mount %s on %s." % (fs, media))
                     continue
-                self.log("## %s:%s:%s:%s" % (media, fs, bench, nfg))
+                self.log("## %s:%s:%s:%s:%s" % (media, fs, bench, nfg, dio))
                 self.pre_work()
-                self.fxmark(media, fs, bench, ncore, nfg, nbg)
+                self.fxmark(media, dio, fs, bench, ncore, nfg, nbg)
                 self.post_work()
             self.log("### NUM_TEST_CONF  = %d" % (cnt + 1))
         finally:
@@ -502,7 +516,8 @@ if __name__ == "__main__":
     run_config = [
         (Runner.CORE_FINE_GRAIN,
          PerfMon.LEVEL_LOW,
-         ("mem", "*", "*", "*")),
+         ("mem", "*", "*", "*", "*")),
+         # new version e.g.) ("mem","1", "tmpfs", "filebench_varmail", "32")),
          # ("mem", "tmpfs", "filebench_varmail", "32")),
                   # (Runner.CORE_COARSE_GRAIN,
                   #  PerfMon.LEVEL_PERF_RECORD,

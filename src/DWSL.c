@@ -12,6 +12,8 @@
 #include <inttypes.h>
 #include "fxmark.h"
 #include "util.h"
+#include <stdlib.h>	/*to use posix_memalign*/
+#include <assert.h> /*to use assert() */
 
 static void set_test_root(struct worker *worker, char *test_root)
 {
@@ -21,7 +23,8 @@ static void set_test_root(struct worker *worker, char *test_root)
 
 static int pre_work(struct worker *worker)
 {
-	char page[PAGE_SIZE];
+  	char *page = NULL;
+	struct bench *bench = worker->bench;
 	char test_root[PATH_MAX];
 	char file[PATH_MAX];
 	int fd, rc = 0;
@@ -35,7 +38,19 @@ static int pre_work(struct worker *worker)
 	snprintf(file, PATH_MAX, "%s/n_jnl_cmt.dat", test_root);
 	if ((fd = open(file, O_CREAT | O_RDWR, S_IRWXU)) == -1)
 		goto err_out;
-	if (write(fd, page, sizeof(page)) == -1)
+
+	/* allocate data buffer aligned with pagesize*/
+	if(posix_memalign((void **)&(worker->page), PAGE_SIZE, PAGE_SIZE))
+	  goto err_out;
+
+	page = worker->page;
+	assert(page);
+
+	/*set flag with O_DIRECT if need*/
+	if(bench->directio && (fcntl(fd, F_SETFL, O_DIRECT)==-1))
+	  goto err_out;
+
+	if (write(fd, page, PAGE_SIZE) != PAGE_SIZE)
 		goto err_out;
 out:
 	/* put fd to worker's private */
@@ -48,15 +63,17 @@ err_out:
 
 static int main_work(struct worker *worker)
 {
-	char page[PAGE_SIZE];
+  	char *page = worker->page;
 	struct bench *bench = worker->bench;
 	int fd, rc = 0;
 	uint64_t iter = 0;
 
+	assert(page);
+
 	/* fsync */
 	fd = (int)worker->private[0];
 	for (iter = 0; !bench->stop; ++iter) {
-	        if (pwrite(fd, page, sizeof(page), 0) == -1)
+	        if (pwrite(fd, page, PAGE_SIZE, 0) != PAGE_SIZE)
 			goto err_out;
 		if (fsync(fd) == -1)
 			goto err_out;

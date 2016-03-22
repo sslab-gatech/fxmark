@@ -77,7 +77,7 @@ static void sighandler(int x)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-result"
 
-static void worker_main(void *arg) 
+static void worker_main(void *arg)
 {
         struct worker *worker = (struct worker*)arg;
         struct bench *bench = worker->bench;
@@ -100,14 +100,14 @@ static void worker_main(void *arg)
                 while (!bench->start)
                         nop_pause();
         }
-        else {
-                /* are all workers ready? */
-                int i;
-                for (i = 1; i < bench->ncpu; i++) {
-                        struct worker *w = &bench->workers[i];
-                        while (!w->ready)
-                                nop_pause();
-                }
+		else {
+		  /* are all workers ready? */
+		  int i;
+		  for (i = 1; i < bench->ncpu; i++) {
+			struct worker *w = &bench->workers[i];
+			while (!w->ready)
+			  nop_pause();
+		  }
 		/* make things more deterministic */
 		sync();
 
@@ -168,22 +168,22 @@ static void wait(struct bench *bench)
 void run_bench(struct bench *bench)
 {
         int i;
-        for (i = 1; i < bench->ncpu; ++i) {
-                /**
-                 * fork() is intentionally used instead of pthread
-                 * to avoid known scalability bottlenecks 
-                 * of linux virtual memory subsystem. 
-                 */ 
-                pid_t p = fork();
-                if (p < 0)
-                        bench->workers[i].ret = errno;
-                else if (!p) {
-                        worker_main(&bench->workers[i]);
-                        exit(0);
-                }
-        }
-        worker_main(&bench->workers[0]);
-        wait(bench);
+		for (i = 1; i < bench->ncpu; ++i) {
+		  /**
+		   * fork() is intentionally used instead of pthread
+		   * to avoid known scalability bottlenecks 
+		   * of linux virtual memory subsystem. 
+		   */ 
+		  pid_t p = fork();
+		  if (p < 0)
+			bench->workers[i].ret = errno;
+		  else if (!p) {
+			worker_main(&bench->workers[i]);
+			exit(0);
+		  }
+		}
+		worker_main(&bench->workers[0]);
+		wait(bench);
 }
 
 void report_bench(struct bench *bench, FILE *out)

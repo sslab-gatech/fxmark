@@ -31,6 +31,7 @@ struct bench {
 	int ncpu;
 	int nbg;
 	unsigned int duration;
+	int	directio;
 	struct worker *workers; 
 	struct bench_operations ops;
 	char profile_start_cmd[BENCH_PROFILE_CMD_BYTES];
@@ -52,6 +53,7 @@ struct worker {
 	volatile double   works;
 
 	uint64_t private[WORKER_MAX_PRIVATE];
+	char *page;		/*private data buffer*/
 } CACHELINE_ALIGNED;
 
 struct bench *alloc_bench(int ncpu, int nbg);
