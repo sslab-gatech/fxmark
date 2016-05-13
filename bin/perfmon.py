@@ -107,7 +107,9 @@ class PerfMon(object):
 
         # calc. idle time
         total_cpu_time = ncpu * delta[0]
-        delta[4] = total_cpu_time - (delta[1] + delta[3])
+        #woonhak, 4th col is idle, therefore we don't need to crunch this idle number again
+        #in addition, to get the correct number include 'iowait', we should consider 5th col too
+        #delta[4] = total_cpu_time - (delta[1] + delta[3])
 
         # calc cpu utlization
         delta.extend( list( map(lambda x: x/total_cpu_time * 100.0, delta[1:])))
@@ -123,6 +125,18 @@ class PerfMon(object):
             fd.flush()
 
     def _get_cpu_stat(self):
+        #woonhak - According to Linux Documentation, 
+        #/proc/stat is as follows;
+        # - user: normal processes executing in user mode       
+        # - nice: niced processes executing in user mode
+        # - system: processes executing in kernel mode
+        # - idle: twiddling thumbs
+        # - iowait: waiting for I/O to complete
+        # - irq: servicing interrupts
+        # - softirq: servicing softirqs
+        # - steal: involuntary wait
+        # - guest: running a normal guest
+        # - guest_nice: running a niced guest
         p = self._exec_cmd("sudo cat /proc/stat", subprocess.PIPE)
         ncpus = 0
         cpu_stat = []

@@ -108,6 +108,7 @@ static int parse_option(int argc, char *argv[], struct cmd_opt *opt)
 		{"ncore",     required_argument, 0, 'n'}, 
 		{"nbg",       required_argument, 0, 'g'}, 
 		{"duration",  required_argument, 0, 'd'}, 
+		{"directio",  required_argument, 0, 'D'}, 
 		{"root",      required_argument, 0, 'r'}, 
 		{"profbegin", required_argument, 0, 'b'},
 		{"profend",   required_argument, 0, 'e'},
@@ -122,7 +123,7 @@ static int parse_option(int argc, char *argv[], struct cmd_opt *opt)
 	for(arg_cnt = 0; 1; ++arg_cnt) {
 		int c, idx = 0;
 		c = getopt_long(argc, argv, 
-				"t:n:g:d:r:b:e:l:", options, &idx);
+				"t:n:g:d:D:r:b:e:l:", options, &idx);
 		if (c == -1)
 			break; 
 		switch(c) {
@@ -139,6 +140,13 @@ static int parse_option(int argc, char *argv[], struct cmd_opt *opt)
 			break;
 		case 'd':
 			opt->duration = atoi(optarg);
+			break;
+		case 'D':
+			opt->directio = atoi(optarg);
+#if 0	/*optional debug*/
+			if(opt->directio)
+			  fprintf(stderr, "DirectIO Enabled\n");
+#endif
 			break;
 		case 'r':
 			opt->root = optarg;
@@ -170,6 +178,8 @@ static void usage(FILE *out, const char *myname)
 	fprintf(out, "  --ncore     = number of core\n");
 	fprintf(out, "  --nbg       = number of background worker\n");
 	fprintf(out, "  --duration  = duration in seconds\n");
+	fprintf(out, "  --directio  = file flag set O_DIRECT : 0-false, 1-true\n"
+	             "                                         (only valid for DWxx type)\n");
 	fprintf(out, "  --root      = test root directory\n");
 	fprintf(out, "  --profbegin = profiling start command\n");
 	fprintf(out, "  --profend   = profiling stop command\n");
@@ -181,6 +191,7 @@ static void init_bench(struct bench *bench, struct cmd_opt *opt)
 	struct fx_opt *fx_opt = fx_opt_bench(bench);
 
 	bench->duration = opt->duration;
+	bench->directio = opt->directio;
 	strncpy(bench->profile_start_cmd,
 		opt->profile_start_cmd, BENCH_PROFILE_CMD_BYTES);
 	strncpy(bench->profile_stop_cmd,
@@ -193,7 +204,7 @@ static void init_bench(struct bench *bench, struct cmd_opt *opt)
 
 int main(int argc, char *argv[])
 {
-	struct cmd_opt opt = {NULL, 0, 0, 0, NULL};
+	struct cmd_opt opt = {NULL, 0, 0, 0, 0, NULL};
 	struct bench *bench; 
 
 	/* parse command line options */

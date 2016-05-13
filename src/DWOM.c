@@ -12,6 +12,8 @@
 #include <inttypes.h>
 #include "fxmark.h"
 #include "util.h"
+#include <stdlib.h>	/*to use posix_memalign*/
+#include <assert.h>	/*to use assert()*/
 
 #define PRIVATE_REGION_SIZE (1024 * 1024 * 8)
 #define PRIVATE_REGION_PAGE_NUM (PRIVATE_REGION_SIZE/PAGE_SIZE)
@@ -30,11 +32,22 @@ static void set_test_file(struct worker *worker, char *test_root)
 
 static int pre_work(struct worker *worker)
 {
+  	char *page = NULL;
 	struct bench *bench = worker->bench;
 	char path[PATH_MAX];
 	int fd, max_id = -1, rc;
 	int i, j;
 
+	/* allocate data buffer aligned with pagesize*/
+	if(posix_memalign((void **)&(worker->page), PAGE_SIZE, PAGE_SIZE))
+	  goto err_out;
+	page = worker->page;
+	assert(page);
+
+#if DEBUG
+	/*to debug*/
+	fprintf(stderr, "DEBUG: worker->id[%d], page address :%p\n",worker->id, page);
+#endif
 	/* a leader takes over all pre_work() */
 	if (worker->id != 0)
 		return 0;
@@ -55,13 +68,17 @@ static int pre_work(struct worker *worker)
 	if ((fd = open(path, O_CREAT | O_RDWR, S_IRWXU)) == -1)
 		goto err_out;
 
+	/* set flag with O_DIRECT if necessary*/
+	if(bench->directio && (fcntl(fd, F_SETFL, O_DIRECT) == -1))
+	  goto err_out;
+
 	for (i = 0; i <= max_id; ++i) {
-		char page[PAGE_SIZE];
-		for (j = 0; j < PRIVATE_REGION_PAGE_NUM; ++j) {
-			if (write(fd, page, sizeof(page)) == -1)
-				goto err_out;
-		}
+	  for (j = 0; j < PRIVATE_REGION_PAGE_NUM; ++j) {
+		if (write(fd, page, PAGE_SIZE) != PAGE_SIZE)
+		  goto err_out;
+	  }
 	}
+
 	fsync(fd);
 	close(fd);
 out:
@@ -75,19 +92,30 @@ static int main_work(struct worker *worker)
 {
 	struct bench *bench = worker->bench;
 	char path[PATH_MAX];
-	char page[PAGE_SIZE];
+	char *page = worker->page;
 	int fd, rc = 0;
 	off_t pos;
 	uint64_t iter = 0;
 
+#if DEBUG 
+	fprintf(stderr, "DEBUG: worker->id[%d], main worker address :%p\n",
+		worker->id, worker->page);
+#endif
+
+	assert(page);
+
 	set_test_file(worker, path);
-	if ((fd = open(path, O_CREAT | O_RDWR, S_IRWXU)) == -1)
+	if ((fd = open(path, O_CREAT|O_RDWR , S_IRWXU)) == -1)
 		goto err_out;
 	
+	/* set flag with O_DIRECT if necessary*/
+	if(bench->directio && (fcntl(fd, F_SETFL, O_DIRECT)==-1))
+	  goto err_out;
+
 	pos = PRIVATE_REGION_SIZE * worker->id;
 	for (iter = 0; !bench->stop; ++iter) {
-	        if (pwrite(fd, page, sizeof(page), pos) == -1)
-			goto err_out;
+	  if (pwrite(fd, page, PAGE_SIZE, pos) != PAGE_SIZE)
+		goto err_out;
 	}
 	close(fd);
 out:
