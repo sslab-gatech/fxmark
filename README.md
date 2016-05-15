@@ -52,4 +52,5 @@ Authors
 - Changwoo Min <changwoo@gatech.edu>
 - Sanidhya Kashyap <sanidhya@gatech.edu>
 - Steffen Maass <steffen.maass@gatech.edu>
+- Woonhak Kang <woonhak.kang@gatech.edu>
 - Taesoo Kim <taesoo@gatech.edu>
