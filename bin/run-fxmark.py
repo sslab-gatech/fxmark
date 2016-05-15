@@ -511,21 +511,21 @@ if __name__ == "__main__":
     # - PerfMon.LEVEL_PERF_STAT                # for cycles and instructions
     #
     # o testcase filter
-    # - (storage device, filesystem, test case, # core)
+    # - (storage device, directio, filesystem, test case, # core)
 
+    # TODO: make it scriptable
     run_config = [
         (Runner.CORE_FINE_GRAIN,
          PerfMon.LEVEL_LOW,
          ("mem", "*", "*", "*", "*")),
-         # new version e.g.) ("mem","1", "tmpfs", "filebench_varmail", "32")),
-         # ("mem", "tmpfs", "filebench_varmail", "32")),
-                  # (Runner.CORE_COARSE_GRAIN,
-                  #  PerfMon.LEVEL_PERF_RECORD,
-                  #  ("*", "*", "*", "1")),
-                  #
-                  # (Runner.CORE_COARSE_GRAIN,
-                  #  PerfMon.LEVEL_PERF_RECORD,
-                  #  ("*", "*", "*", str(cpupol.PHYSICAL_CHIPS * cpupol.CORE_PER_CHIP)))
+        # ("mem", "1", "tmpfs", "filebench_varmail", "32")),
+        # (Runner.CORE_COARSE_GRAIN,
+        #  PerfMon.LEVEL_PERF_RECORD,
+        #  ("*", "*", "*", "*", "1")),
+        #
+        # (Runner.CORE_COARSE_GRAIN,
+        #  PerfMon.LEVEL_PERF_RECORD,
+        #  ("*", "*", "*", "*", str(cpupol.PHYSICAL_CHIPS * cpupol.CORE_PER_CHIP)))
     ]
 
     confirm_media_path()
