@@ -40,14 +40,14 @@ class Runner(object):
         # run config
         self.CORE_GRAIN    = core_grain
         self.PERFMON_LEVEL = pfm_lvl
-        self.FILTER        = run_filter # media, directio, fs, bench, ncore
+        self.FILTER        = run_filter # media, fs, bench, ncore, directio
         self.DRYRUN        = False
         self.DEBUG_OUT     = False
 
         # bench config
         self.DISK_SIZE     = "32G"
         self.DURATION      = 30 # seconds
-        self.DIRECTIOS     = ["buffered", "directio"]  # enable directio except tmpfs -> nodirectio 
+        self.DIRECTIOS     = ["bufferedio", "directio"]  # enable directio except tmpfs -> nodirectio 
         self.MEDIA_TYPES   = ["ssd", "hdd", "nvme", "mem"]
         self.FS_TYPES      = [
 #        self.FS_TYPES      = ["tmpfs",
@@ -397,8 +397,8 @@ class Runner(object):
                             if not mount_fn:
                                 continue
                             if self._match_config(self.FILTER, \
-                                                  (media, fs, dio, bench, str(ncore))):
-                                yield(media, dio, fs, bench, ncore)
+                                                  (media, fs, bench, str(ncore), dio)):
+                                yield(media, fs, bench, ncore, dio)
 
     def fxmark_env(self):
         env = ' '.join(["PERFMON_LEVEL=%s" % self.PERFMON_LEVEL,
@@ -422,10 +422,10 @@ class Runner(object):
 
         if directio is '1':
             if fs is "tmpfs": 
-                print("INFO : DirectIO under tmpfs disabled by default")
+                print("# INFO: DirectIO under tmpfs disabled by default")
                 directio='0';
             else: 
-                print("INFO : DirectIO Enabled")
+                print("# INFO: DirectIO Enabled")
 
         cmd = ' '.join([self.fxmark_env(),
                         bin,
@@ -454,7 +454,7 @@ class Runner(object):
         try:
             cnt = -1
             self.log_start()
-            for (cnt, (media, dio, fs, bench, ncore)) in enumerate(self.gen_config()):
+            for (cnt, (media, fs, bench, ncore, dio)) in enumerate(self.gen_config()):
                 (ncore, nbg) = self.add_bg_worker_if_needed(bench, ncore)
                 nfg = ncore - nbg
 
@@ -511,21 +511,21 @@ if __name__ == "__main__":
     # - PerfMon.LEVEL_PERF_STAT                # for cycles and instructions
     #
     # o testcase filter
-    # - (storage device, directio | buffered, filesystem, test case, # core)
+    # - (storage device, filesystem, test case, # core, directio | bufferedio)
 
     # TODO: make it scriptable
     run_config = [
         (Runner.CORE_FINE_GRAIN,
          PerfMon.LEVEL_LOW,
-         ("mem", "*", "*", "*", "*")),
-        # ("mem", "directio", "tmpfs", "filebench_varmail", "32")),
+         ("mem", "*", "DWOL", "80", "directio")),
+        # ("mem", "tmpfs", "filebench_varmail", "32", "directio")),
         # (Runner.CORE_COARSE_GRAIN,
         #  PerfMon.LEVEL_PERF_RECORD,
-        #  ("*", "*", "*", "*", "1")),
+        #  ("*", "*", "*", "*", "bufferedio")),
         #
         # (Runner.CORE_COARSE_GRAIN,
         #  PerfMon.LEVEL_PERF_RECORD,
-        #  ("*", "*", "*", "*", str(cpupol.PHYSICAL_CHIPS * cpupol.CORE_PER_CHIP)))
+        #  ("*", "*", "*", str(cpupol.PHYSICAL_CHIPS * cpupol.CORE_PER_CHIP), "*"))
     ]
 
     confirm_media_path()
