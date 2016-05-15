@@ -413,7 +413,7 @@ class Runner(object):
             return (self.dbench_path, bench[len("dbench_"):])
         return (self.fxmark_path, bench)
 
-    def fxmark(self, media, dio, fs, bench, ncore, nfg, nbg):
+    def fxmark(self, media, fs, bench, ncore, nfg, nbg, dio):
         self.perfmon_log = os.path.normpath(
             os.path.join(self.log_dir,
                          '.'.join([media, fs, bench, str(nfg), "pm"])))
@@ -468,7 +468,7 @@ class Runner(object):
                     continue
                 self.log("## %s:%s:%s:%s:%s" % (media, fs, bench, nfg, dio))
                 self.pre_work()
-                self.fxmark(media, dio, fs, bench, ncore, nfg, nbg)
+                self.fxmark(media, fs, bench, ncore, nfg, nbg, dio)
                 self.post_work()
             self.log("### NUM_TEST_CONF  = %d" % (cnt + 1))
         finally:
@@ -511,14 +511,14 @@ if __name__ == "__main__":
     # - PerfMon.LEVEL_PERF_STAT                # for cycles and instructions
     #
     # o testcase filter
-    # - (storage device, directio, filesystem, test case, # core)
+    # - (storage device, directio | buffered, filesystem, test case, # core)
 
     # TODO: make it scriptable
     run_config = [
         (Runner.CORE_FINE_GRAIN,
          PerfMon.LEVEL_LOW,
          ("mem", "*", "*", "*", "*")),
-        # ("mem", "1", "tmpfs", "filebench_varmail", "32")),
+        # ("mem", "directio", "tmpfs", "filebench_varmail", "32")),
         # (Runner.CORE_COARSE_GRAIN,
         #  PerfMon.LEVEL_PERF_RECORD,
         #  ("*", "*", "*", "*", "1")),
