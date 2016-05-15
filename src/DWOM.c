@@ -10,10 +10,10 @@
 #include <errno.h>
 #define __STDC_FORMAT_MACROS
 #include <inttypes.h>
+#include <stdlib.h>
+#include <assert.h>
 #include "fxmark.h"
 #include "util.h"
-#include <stdlib.h>	/*to use posix_memalign*/
-#include <assert.h>	/*to use assert()*/
 
 #define PRIVATE_REGION_SIZE (1024 * 1024 * 8)
 #define PRIVATE_REGION_PAGE_NUM (PRIVATE_REGION_SIZE/PAGE_SIZE)
@@ -42,7 +42,8 @@ static int pre_work(struct worker *worker)
 	if(posix_memalign((void **)&(worker->page), PAGE_SIZE, PAGE_SIZE))
 	  goto err_out;
 	page = worker->page;
-	assert(page);
+	if (!page)
+		goto err_out;
 
 #if DEBUG
 	/*to debug*/
@@ -84,7 +85,9 @@ static int pre_work(struct worker *worker)
 out:
 	return rc;
 err_out:
+	bench->stop = 1;
 	rc = errno;
+	free(page);
 	goto out;
 }
 
@@ -124,6 +127,7 @@ out:
 err_out:
 	bench->stop = 1;
 	rc = errno;
+	free(page);
 	goto out;
 }
 

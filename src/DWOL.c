@@ -10,10 +10,10 @@
 #include <errno.h>
 #define __STDC_FORMAT_MACROS
 #include <inttypes.h>
+#include <stdlib.h>
+#include <assert.h>
 #include "fxmark.h"
 #include "util.h"
-#include <stdlib.h>	/*to use posix_memalign*/
-#include <assert.h>	/*to use assert()*/
 
 static void set_test_root(struct worker *worker, char *test_root)
 {
@@ -41,9 +41,9 @@ static int pre_work(struct worker *worker)
 
 	if(posix_memalign((void **)&(worker->page), PAGE_SIZE, PAGE_SIZE))
 	  goto err_out;
-
 	page = worker->page;
-	assert(page);
+	if (!page)
+		goto err_out;
 
 #if DEBUG
 	/*to debug*/
@@ -61,7 +61,9 @@ out:
 	worker->private[0] = (uint64_t)fd;
 	return rc;
 err_out:
+	bench->stop = 1;
 	rc = errno;
+	free(page);
 	goto out;
 }
 
