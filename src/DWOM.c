@@ -32,7 +32,7 @@ static void set_test_file(struct worker *worker, char *test_root)
 
 static int pre_work(struct worker *worker)
 {
-  	char *page = NULL;
+  char *page = NULL;
 	struct bench *bench = worker->bench;
 	char path[PATH_MAX];
 	int fd, max_id = -1, rc;
@@ -87,7 +87,8 @@ out:
 err_out:
 	bench->stop = 1;
 	rc = errno;
-	free(page);
+  if(page)
+    free(page);
 	goto out;
 }
 

@@ -8,6 +8,8 @@
 #include <unistd.h>
 #include <errno.h>
 #define __STDC_FORMAT_MACROS
+#include <stdlib.h>
+#include <assert.h>
 #include <inttypes.h>
 #include "fxmark.h"
 #include "util.h"
@@ -29,10 +31,18 @@ static void set_test_file(struct worker *worker, char *test_root)
 
 static int pre_work(struct worker *worker)
 {
+  char *page=NULL;
 	struct bench *bench = worker->bench;
 	char path[PATH_MAX];
 	int fd, max_id = -1, rc;
 	int i, j;
+
+  /*Allocate aligned buffer*/
+  if(posix_memalign((void **)&(worker->page), PAGE_SIZE, PAGE_SIZE))
+    goto err_out;
+  page = worker->page;
+  if (!page)
+    goto err_out;
 
 	/* a leader takes over all pre_work() */
 	if (worker->id != 0)
@@ -54,10 +64,13 @@ static int pre_work(struct worker *worker)
 	if ((fd = open(path, O_CREAT | O_RDWR, S_IRWXU)) == -1)
 		goto err_out;
 
+  /*set flag with O_DIRECT if necessary*/                  
+  if(bench->directio && (fcntl(fd, F_SETFL, O_DIRECT)==-1))
+    goto err_out;                                          
+
 	for (i = 0; i <= max_id; ++i) {
-		char page[PAGE_SIZE];
 		for (j = 0; j < PRIVATE_REGION_PAGE_NUM; ++j) {
-			if (write(fd, page, sizeof(page)) == -1)
+			if (write(fd, page, PAGE_SIZE) != PAGE_SIZE)
 				goto err_out;
 		}
 	}
@@ -67,34 +80,43 @@ out:
 	return rc;
 err_out:
 	rc = errno;
+  if(page)
+    free(page);
 	goto out;
 }
 
 static int main_work(struct worker *worker)
 {
-	struct bench *bench = worker->bench;
-	char path[PATH_MAX];
-	char page[PAGE_SIZE];
+  struct bench *bench = worker->bench;
+  char *page = worker->page;
+  char path[PATH_MAX];
 	int fd, rc = 0;
 	off_t pos;
 	uint64_t iter = 0;
 
+  assert(page);
+
 	set_test_file(worker, path);
 	if ((fd = open(path, O_CREAT | O_RDWR, S_IRWXU)) == -1)
 		goto err_out;
+
+  /* set flag with O_DIRECT if necessary*/                  
+  if(bench->directio && (fcntl(fd, F_SETFL, O_DIRECT)==-1)) 
+    goto err_out;                                           
 	
-	pos = PRIVATE_REGION_SIZE * worker->id;
-	for (iter = 0; !bench->stop; ++iter) {
-	        if (pread(fd, page, sizeof(page), pos) == -1)
-			goto err_out;
-	}
-	close(fd);
+  pos = PRIVATE_REGION_SIZE * worker->id;
+  for (iter = 0; !bench->stop; ++iter) {
+    if (pread(fd, page, PAGE_SIZE, pos) != PAGE_SIZE)
+      goto err_out;
+  }
+  close(fd);
 out:
 	worker->works = (double)iter;
 	return rc;
 err_out:
 	bench->stop = 1;
 	rc = errno;
+  free(page);
 	goto out;
 }
 
