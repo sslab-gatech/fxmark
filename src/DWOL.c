@@ -23,8 +23,8 @@ static void set_test_root(struct worker *worker, char *test_root)
 
 static int pre_work(struct worker *worker)
 {
-  	char *page = NULL;
-	struct bench *bench = worker->bench;
+        char *page = NULL;
+        struct bench *bench = worker->bench;
 	char test_root[PATH_MAX];
 	char file[PATH_MAX];
 	int fd, rc = 0;
@@ -93,6 +93,7 @@ out:
 err_out:
 	bench->stop = 1;
 	rc = errno;
+        free(page);
 	goto out;
 }
 
