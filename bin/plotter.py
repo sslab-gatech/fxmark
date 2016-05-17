@@ -52,7 +52,7 @@ class Plotter(object):
                 except IndexError:
                     all_config.append(set())
                 all_config[i].add(k)
-        for (i, key) in enumerate(["media", "fs", "bench", "ncore"]):
+        for (i, key) in enumerate(["media", "fs", "bench", "ncore", "iomode"]):
             config_dic[key] = sorted(list(all_config[i]))
         return config_dic
 
@@ -71,13 +71,15 @@ class Plotter(object):
         pdf_name = os.path.basename(pdf_name)
         return pdf_name
 
-    def _get_fs_list(self, media, bench):
-        data = self.parser.search_data([media, "*", bench, "*"])
+    def _get_fs_list(self, media, bench, iomode):
+        data = self.parser.search_data([media, "*", bench, "*", iomode])
         fs_set = set()
         for kd in data:
             fs = kd[0][1]
             if fs not in self.EXCLUDED_FS:
                 fs_set.add(fs)
+        #remove tmpfs - to see more acurate comparision between storage fses
+#        fs_set.remove("tmpfs");
         return sorted(list(fs_set))
 
     def _gen_pdf(self, gp_file):
@@ -103,26 +105,26 @@ class Plotter(object):
         print("set output", file=self.out)
 
 
-    def _plot_sc_data(self, media, bench):
+    def _plot_sc_data(self, media, bench, iomode):
         def _get_sc_style(fs):
             return "with lp ps 0.5"
 
         def _get_data_file(fs):
-            return "%s:%s:%s.dat" % (media, fs, bench)
+            return "%s:%s:%s:%s.dat" % (media, fs, bench, iomode)
 
         # check if there are data
-        fs_list = self._get_fs_list(media, bench)
+        fs_list = self._get_fs_list(media, bench, iomode)
         if fs_list == []:
             return
 
         # gen sc data files
         for fs in fs_list:
-            data = self.parser.search_data([media, fs, bench, "*"])
+            data = self.parser.search_data([media, fs, bench, "*", iomode])
             if data == []:
                 continue
             data_file = os.path.join(self.out_dir, _get_data_file(fs))
             with open(data_file, "w") as out:
-                print("# %s:%s:%s:*" % (media, fs, bench), file=out)
+                print("# %s:%s:%s:%s:*" % (media, fs, bench, iomode), file=out)
                 for d_kv in data:
                     d_kv = d_kv[1]
                     if int(d_kv["ncpu"]) > self.ncore:
@@ -133,7 +135,7 @@ class Plotter(object):
         
         # gen gp file
         print("", file=self.out)
-        print("set title \'%s:%s\'" % (media, bench), file=self.out)
+        print("set title \'%s:%s:%s\'" % (media, bench, iomode), file=self.out)
         print("set xlabel \'# cores\'", file=self.out)
         print("set ylabel \'%s\'" % "M ops/sec", file=self.out)
 
@@ -147,7 +149,7 @@ class Plotter(object):
                   end="", file=self.out)
         print("", file=self.out)
 
-    def _plot_util_data(self, media, ncore, bench):
+    def _plot_util_data(self, media, ncore, bench, iomode):
         print("", file=self.out)
         print("set grid y", file=self.out)
         print("set style data histograms", file=self.out)
@@ -156,7 +158,7 @@ class Plotter(object):
         print("set style fill solid 1.0 border -1", file=self.out)
         print("set ytics 10", file=self.out)
         print("", file=self.out)
-        print("set title \'%s:%s:*:%s\'" % (media, bench, ncore), file=self.out)
+        print("set title \'%s:%s:*:%s:%s\'" % (media,bench, ncore, iomode), file=self.out)
         print("set xlabel \'\'", file=self.out)
         print("set ylabel \'CPU utilization\'", file=self.out)
         print("set yrange [0:100]", file=self.out)
@@ -179,11 +181,11 @@ class Plotter(object):
                   end="", file=self.out)
         print("", file=self.out)
 
-        fs_list = self._get_fs_list(media, bench)
+        fs_list = self._get_fs_list(media, bench, iomode)
         for _u in self.CPU_UTILS:
             print("  # %s" % self.CPU_UTILS, file=self.out)
             for fs in fs_list:
-                data = self.parser.search_data([media, fs, bench, str(ncore)])
+                data = self.parser.search_data([media, fs, bench, str(ncore), iomode])
                 if data is None:
                     continue
                 d_kv = data[0][1]
@@ -203,7 +205,8 @@ class Plotter(object):
         self._plot_header()
         for media in self.config["media"]:
             for bench in self.config["bench"]:
-                self._plot_sc_data(media, bench)
+                for iomode in self.config["iomode"]:
+                    self._plot_sc_data(media, bench, iomode)
         self._plot_footer()
         self.out.close()
         self._gen_pdf(self.out_file)
@@ -217,7 +220,8 @@ class Plotter(object):
         self._plot_header()
         for media in self.config["media"]:
             for bench in self.config["bench"]:
-                self._plot_util_data(media, ncore, bench)
+                for iomode in self.config["iomode"]:
+                    self._plot_util_data(media, ncore, bench, iomode)
         self._plot_footer()
         self.out.close()
         self._gen_pdf(self.out_file)
