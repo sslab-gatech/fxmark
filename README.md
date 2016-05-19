@@ -64,7 +64,7 @@ Changwoo Min, Sanidhya Kashyap, Steffen Maass, Woonhak Kang, and Taesoo Kim
 USENIX ATC 2016
 
 @inproceedings{min:fxmark,
-  title        = {{Understanding Manycore Scalability of File Systems (to appear)}},
+  title        = {{Understanding Manycore Scalability of File Systems}},
   author       = {Changwoo Min and Sanidhya Kashyap and Steffen Maass and Woonhak Kang and Taesoo Kim},
   booktitle    = {Proceedings of the 2016 USENIX Annual Technical Conference (ATC)},
   month        = jun,
