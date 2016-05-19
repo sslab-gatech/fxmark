@@ -54,3 +54,21 @@ Authors
 - Steffen Maass <steffen.maass@gatech.edu>
 - Woonhak Kang <woonhak.kang@gatech.edu>
 - Taesoo Kim <taesoo@gatech.edu>
+
+Publications
+------------
+- Paper on FxMark
+```
+Understanding Manycore Scalability of File Systems
+Changwoo Min, Sanidhya Kashyap, Steffen Maass, Woonhak Kang, and Taesoo Kim
+USENIX ATC 2016
+
+@inproceedings{min:fxmark,
+  title        = {{Understanding Manycore Scalability of File Systems (to appear)}},
+  author       = {Changwoo Min and Sanidhya Kashyap and Steffen Maass and Woonhak Kang and Taesoo Kim},
+  booktitle    = {Proceedings of the 2016 USENIX Annual Technical Conference (ATC)},
+  month        = jun,
+  year         = 2016,
+  address      = {Denver, CO},
+}
+```
