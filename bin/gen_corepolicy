@@ -30,11 +30,11 @@ def gen_test_hw_thr_counts(fine_grain):
 
     # small hw threads: 1, 2, 4
     if 2 > total_hw_thr:
-        return
+        return "1"
     test_hw_thr.add(2)
 
     if 4 > total_hw_thr:
-        return
+        return ','.join( map(lambda cnt: str(cnt), sorted(list(test_hw_thr))) )
     test_hw_thr.add(4)
 
     # for all smt levels
@@ -55,16 +55,16 @@ def gen_test_hw_thr_counts(fine_grain):
             cnt = base_hw_thr + int(1.5 * core_per_chip * physical_chips)
             test_hw_thr.add(cnt)
 
-
     if fine_grain:
         # for smt level 1
         inc = cnt = int(core_per_chip/2) if int(core_per_chip/2) <= 10 else 8
+        if inc < 1:
+            inc = 1
         while (cnt < total_core):
             # do not add too-close points
             if cnt-1 not in test_hw_thr and cnt+1 not in test_hw_thr:
                 test_hw_thr.add(cnt)
             cnt += inc
-
     # make it sorted string
     return ','.join( map(lambda cnt: str(cnt), sorted(list(test_hw_thr))) )
 
