@@ -167,11 +167,12 @@ static int parse_option(int argc, char *argv[], struct cmd_opt *opt)
 	return arg_cnt;
 }
 
-static void usage(FILE *out, const char *myname)
+static void usage(FILE *out)
 {
+	extern const char *__progname;
 	struct bench_desc *bd = bench_table; 
 
-	fprintf(out, "Usage: %s\n", myname);
+	fprintf(out, "Usage: %s\n", __progname);
 	fprintf(out, "  --type     = benchmark type\n");
 	for (; bd->name != NULL; ++bd)
 		fprintf(out, "    %s: %s\n", bd->name, bd->desc);
@@ -209,7 +210,7 @@ int main(int argc, char *argv[])
 
 	/* parse command line options */
 	if (parse_option(argc, argv, &opt) < 4) {
-		usage(stderr, argv[0]);
+		usage(stderr);
 		exit(1);
 	}
 
