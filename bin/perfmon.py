@@ -106,10 +106,7 @@ class PerfMon(object):
         delta = list(map(operator.sub, stat_stop, stat_start))
 
         # calc. idle time
-        total_cpu_time = ncpu * delta[0]
-        # 4th col is idle, therefore we don't need to crunch this idle number again
-        # in addition, to get the correct number include 'iowait', we should consider 5th col too
-        # delta[4] = total_cpu_time - (delta[1] + delta[3])
+        total_cpu_time = sum(delta[1:])
 
         # calc cpu utlization
         delta.extend( list( map(lambda x: x/total_cpu_time * 100.0, delta[1:])))
