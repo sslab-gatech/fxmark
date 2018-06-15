@@ -49,7 +49,7 @@ $  bin/plotter.py --ty util --log {log file} --ncore {# core} --out {output pdf 
 Macro benchmarks
 ----------------
 
-- Refer to our fxmark-apps branch in the [vbench repo](https://github.com/sslab-gatech/vbench) for exim and rocksdb
+- Refer to our fxmark-apps branch in the [vbench repo](https://github.com/sslab-gatech/vbench/tree/fxmark-apps) for exim and rocksdb
 
 
 Authors
