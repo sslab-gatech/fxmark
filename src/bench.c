@@ -100,14 +100,14 @@ static void worker_main(void *arg)
                 while (!bench->start)
                         nop_pause();
         }
-		else {
-		  /* are all workers ready? */
-		  int i;
-		  for (i = 1; i < bench->ncpu; i++) {
+	else {
+		/* are all workers ready? */
+		int i;
+		for (i = 1; i < bench->ncpu; i++) {
 			struct worker *w = &bench->workers[i];
 			while (!w->ready)
-			  nop_pause();
-		  }
+				nop_pause();
+		}
 		/* make things more deterministic */
 		sync();
 
@@ -168,22 +168,22 @@ static void wait(struct bench *bench)
 void run_bench(struct bench *bench)
 {
         int i;
-		for (i = 1; i < bench->ncpu; ++i) {
-		  /**
-		   * fork() is intentionally used instead of pthread
-		   * to avoid known scalability bottlenecks 
-		   * of linux virtual memory subsystem. 
-		   */ 
-		  pid_t p = fork();
-		  if (p < 0)
+	for (i = 1; i < bench->ncpu; ++i) {
+		/**
+		 * fork() is intentionally used instead of pthread
+		 * to avoid known scalability bottlenecks 
+		 * of linux virtual memory subsystem. 
+		 */ 
+		pid_t p = fork();
+		if (p < 0)
 			bench->workers[i].ret = errno;
-		  else if (!p) {
+		else if (!p) {
 			worker_main(&bench->workers[i]);
 			exit(0);
-		  }
 		}
-		worker_main(&bench->workers[0]);
-		wait(bench);
+	}
+	worker_main(&bench->workers[0]);
+	wait(bench);
 }
 
 void report_bench(struct bench *bench, FILE *out)

@@ -39,40 +39,40 @@ static struct bench_desc bench_table[] = {
 	{"DRBL_bg",
 	 "file read with a background writer",
 	 &n_file_rd_ops},
-    {"DRBM",
+	{"DRBM",
 	 "shared file read: each process reads its private region of the shared file",
 	 &n_shfile_rd_ops},
-    {"DRBM_bg",
+	{"DRBM_bg",
 	 "shared file read with a background writer",
 	 &n_shfile_rd_bg_ops},
-    {"DRBH",
+	{"DRBH",
 	 "shared blk read: each process reads the same page of the shared file",
 	 &n_shblk_rd_ops},
-    {"DRBH_bg",
+	{"DRBH_bg",
 	 "shared blk read with a background writer",
 	 &n_shblk_rd_bg_ops},
-    {"MRDL",
+	{"MRDL",
 	 "directory read: each process reads entries of its private directory",
 	 &n_dir_rd_ops},
-    {"MRDL_bg",
+	{"MRDL_bg",
 	 "directory read with a background writer",
 	 &n_dir_rd_bg_ops},
-    {"MRDM",
+	{"MRDM",
 	 "shared directory read: each process reads entries of the shared directory",
 	 &n_shdir_rd_ops},
-    {"MRDM_bg",
+	{"MRDM_bg",
 	 "shared directory read with a background writer",
 	 &n_shdir_rd_bg_ops},
-    {"MRPL",
+	{"MRPL",
 	 "path resolution for a private file",
 	 &n_priv_path_rsl_ops},
-    {"MRPM",
+	{"MRPM",
 	 "path resolution: each process does stat() at random files in 8-level directories with 8-branching-out factor",
 	 &n_path_rsl_ops},
-    {"MRPM_bg",
+	{"MRPM_bg",
 	 "path resolution  with a background writer",
 	 &n_path_rsl_bg_ops},
-    {"MRPH",
+	{"MRPH",
 	 "path resolution at the same level directory",
 	 &n_spath_rsl_ops},
 	{"MWCM",
@@ -145,7 +145,7 @@ static int parse_option(int argc, char *argv[], struct cmd_opt *opt)
 			opt->directio = atoi(optarg);
 #if 0	/*optional debug*/
 			if(opt->directio)
-			  fprintf(stderr, "DirectIO Enabled\n");
+				fprintf(stderr, "DirectIO Enabled\n");
 #endif
 			break;
 		case 'r':
@@ -180,7 +180,7 @@ static void usage(FILE *out)
 	fprintf(out, "  --nbg       = number of background worker\n");
 	fprintf(out, "  --duration  = duration in seconds\n");
 	fprintf(out, "  --directio  = file flag set O_DIRECT : 0-false, 1-true\n"
-	             "                                         (only valid for DWxx type)\n");
+		"                                         (only valid for DWxx type)\n");
 	fprintf(out, "  --root      = test root directory\n");
 	fprintf(out, "  --profbegin = profiling start command\n");
 	fprintf(out, "  --profend   = profiling stop command\n");
