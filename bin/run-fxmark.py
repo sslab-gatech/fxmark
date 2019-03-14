@@ -24,10 +24,10 @@ def catch_ctrl_C(sig, frame):
 
 class Runner(object):
     # media path
-    LOOPDEV = "/dev/loopX"
-    NVMEDEV = "/dev/nvme0n1pX"
-    HDDDEV  = "/dev/sdX"
-    SSDDEV  = "/dev/sdY"
+    LOOPDEV = "/dev/vda8"
+    NVMEDEV = "/dev/vda9"
+    HDDDEV  = "/dev/vda10"
+    SSDDEV  = "/dev/vda11"
 
     # test core granularity
     CORE_FINE_GRAIN   = 0
@@ -45,7 +45,7 @@ class Runner(object):
         self.DEBUG_OUT     = False
 
         # bench config
-        self.DISK_SIZE     = "32G"
+        self.DISK_SIZE     = "7G"
         self.DURATION      = 30 # seconds
         self.DIRECTIOS     = ["bufferedio", "directio"]  # enable directio except tmpfs -> nodirectio 
         self.MEDIA_TYPES   = ["ssd", "hdd", "nvme", "mem"]
@@ -377,6 +377,7 @@ class Runner(object):
         self.exec_cmd("mkdir -p " + mnt_path, self.dev_null)
         return mount_fn(media, fs, mnt_path)
 
+    # get true if two list is same， can use *
     def _match_config(self, key1, key2):
         for (k1, k2) in zip(key1, key2):
             if k1 == "*" or k2 == "*":
