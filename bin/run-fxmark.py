@@ -26,8 +26,8 @@ class Runner(object):
     # media path
     LOOPDEV = "/dev/vda8"
     NVMEDEV = "/dev/vda9"
-    HDDDEV  = "/dev/vda10"
-    SSDDEV  = "/dev/vda11"
+    HDDDEV  = "/dev/vda11"
+    SSDDEV  = "/dev/vda10"
 
     # test core granularity
     CORE_FINE_GRAIN   = 0
@@ -518,11 +518,11 @@ if __name__ == "__main__":
     run_config = [
         (Runner.CORE_FINE_GRAIN,
          PerfMon.LEVEL_LOW,
-         ("mem", "*", "DWOL", "80", "directio")),
-        # ("mem", "tmpfs", "filebench_varmail", "32", "directio")),
-        # (Runner.CORE_COARSE_GRAIN,
+         ("hdd", "*", "DWOL", "*", "bufferedio")),
+        # ("hdd", "tmpfs", "filebench_varmail", "32", "directio")),
+        # (Runner.CORE_FINE_GRAIN,
         #  PerfMon.LEVEL_PERF_RECORD,
-        #  ("*", "*", "*", "*", "bufferedio")),
+        #  ("hdd", "ext4", "DRBL", "20", "bufferedio")),
         #
         # (Runner.CORE_COARSE_GRAIN,
         #  PerfMon.LEVEL_PERF_RECORD,
