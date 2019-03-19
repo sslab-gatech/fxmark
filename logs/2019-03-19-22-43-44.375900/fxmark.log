@@ -1,0 +1,38 @@
+### SYSTEM         = Linux ubuntu 4.4.0-87-generic #110-Ubuntu SMP Tue Jul 18 12:55:35 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux
+### DISK_SIZE      = 7G
+### DURATION       = 30s
+### DIRECTIO       = bufferedio,directio
+### MEDIA_TYPES    = ssd,hdd,nvme,mem
+### FS_TYPES       = ext4,ext4_no_jnl,xfs,btrfs,f2fs
+### BENCH_TYPES    = DWAL,DWOL,DWOM,DWSL,MWRL,MWRM,MWCL,MWCM,MWUM,MWUL,DWTL,filebench_varmail,filebench_oltp,filebench_fileserver,dbench_client,MRPL,MRPM,MRPH,MRDM,MRDL,DRBH,DRBM,DRBL
+### NCORES         = 1,2,3,4
+### CORE_SEQ       = 0,1,2,3
+
+
+### MODEL_NAME     = Intel Xeon E312xx (Sandy Bridge, IBRS update)
+### PHYSICAL_CHIPS = 4
+### CORE_PER_CHIP  = 1
+### SMT_LEVEL      = 1
+
+
+# Fail to mount ext4 on hdd.
+# Fail to mount ext4_no_jnl on hdd.
+# Fail to mount xfs on hdd.
+# Fail to mount btrfs on hdd.
+# Fail to mount f2fs on hdd.
+# Fail to mount ext4 on hdd.
+# Fail to mount ext4_no_jnl on hdd.
+# Fail to mount xfs on hdd.
+# Fail to mount btrfs on hdd.
+# Fail to mount f2fs on hdd.
+# Fail to mount ext4 on hdd.
+# Fail to mount ext4_no_jnl on hdd.
+# Fail to mount xfs on hdd.
+# Fail to mount btrfs on hdd.
+# Fail to mount f2fs on hdd.
+# Fail to mount ext4 on hdd.
+# Fail to mount ext4_no_jnl on hdd.
+# Fail to mount xfs on hdd.
+# Fail to mount btrfs on hdd.
+# Fail to mount f2fs on hdd.
+### NUM_TEST_CONF  = 20
