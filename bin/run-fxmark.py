@@ -24,10 +24,10 @@ def catch_ctrl_C(sig, frame):
 
 class Runner(object):
     # media path
-    LOOPDEV = "/dev/vda8"
-    NVMEDEV = "/dev/vda9"
-    HDDDEV  = "/dev/vda10"
-    SSDDEV  = "/dev/vda11"
+    LOOPDEV = "/dev/vda6"
+    NVMEDEV = "/dev/vda6"
+    HDDDEV  = "/dev/vda6"
+    SSDDEV  = "/dev/vda6"
 
     # test core granularity
     CORE_FINE_GRAIN   = 0
@@ -518,7 +518,11 @@ if __name__ == "__main__":
     run_config = [
         (Runner.CORE_FINE_GRAIN,
          PerfMon.LEVEL_LOW,
-         ("mem", "*", "DWOL", "80", "directio")),
+         ("ssd", "*", "DWOL", "*", "directio")),
+        (Runner.CORE_FINE_GRAIN,
+         PerfMon.LEVEL_LOW,
+         ("ssd", "*", "DWOL", "*", "bufferedio")),
+        # ("mem", "tmpfs", "filebench_varmail", "32", "directio")),
         # ("mem", "tmpfs", "filebench_varmail", "32", "directio")),
         # (Runner.CORE_COARSE_GRAIN,
         #  PerfMon.LEVEL_PERF_RECORD,
