@@ -1,0 +1,118 @@
+### SYSTEM         = Linux ubuntu 4.4.0-87-generic #110-Ubuntu SMP Tue Jul 18 12:55:35 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux
+### DISK_SIZE      = 7G
+### DURATION       = 30s
+### DIRECTIO       = bufferedio,directio
+### MEDIA_TYPES    = ssd,hdd,nvme,mem
+### FS_TYPES       = ext4,ext4_no_jnl,xfs,btrfs,f2fs
+### BENCH_TYPES    = DWAL,DWOL,DWOM,DWSL,MWRL,MWRM,MWCL,MWCM,MWUM,MWUL,DWTL,filebench_varmail,filebench_oltp,filebench_fileserver,dbench_client,MRPL,MRPM,MRPH,MRDM,MRDL,DRBH,DRBM,DRBL
+### NCORES         = 1,2,3,4
+### CORE_SEQ       = 0,1,2,3
+
+
+### MODEL_NAME     = Intel Xeon E312xx (Sandy Bridge, IBRS update)
+### PHYSICAL_CHIPS = 4
+### CORE_PER_CHIP  = 1
+### SMT_LEVEL      = 1
+
+
+## ssd:ext4:DWOL:4:bufferedio
+# ncpu secs works works/sec real.sec user.sec nice.sec sys.sec idle.sec iowait.sec irq.sec softirq.sec steal.sec guest.sec user.util nice.util sys.util idle.util iowait.util irq.util softirq.util steal.util guest.util
+
+4 29.998635 74470120.000000 2482450.326197 30.0789 1.4 0 41.95 0.19 0.07 0 0.01 67.36 0 1.26149 0 37.7996 0.171202 0.0630744 0 0.00901063 60.6956 0
+
+## ssd:ext4_no_jnl:DWOL:4:bufferedio
+# ncpu secs works works/sec real.sec user.sec nice.sec sys.sec idle.sec iowait.sec irq.sec softirq.sec steal.sec guest.sec user.util nice.util sys.util idle.util iowait.util irq.util softirq.util steal.util guest.util
+
+4 30.002503 116158820.000000 3871637.578511 30.0677 1.9 0 43.93 0.16 0 0 0.01 63.85 0 1.72963 0 39.9909 0.145653 0 0 0.00910332 58.1247 0
+
+## ssd:xfs:DWOL:4:bufferedio
+# ncpu secs works works/sec real.sec user.sec nice.sec sys.sec idle.sec iowait.sec irq.sec softirq.sec steal.sec guest.sec user.util nice.util sys.util idle.util iowait.util irq.util softirq.util steal.util guest.util
+
+4 30.000055 45435148.000000 1514502.131504 30.0771 1.25 0 44.14 0.17 0 0 0.01 63.86 0 1.14228 0 40.3363 0.15535 0 0 0.00913826 58.3569 0
+
+## ssd:btrfs:DWOL:4:bufferedio
+# ncpu secs works works/sec real.sec user.sec nice.sec sys.sec idle.sec iowait.sec irq.sec softirq.sec steal.sec guest.sec user.util nice.util sys.util idle.util iowait.util irq.util softirq.util steal.util guest.util
+
+4 29.999378 24954672.000000 831839.639877 30.076 0.53 0 45.27 0.17 0 0 0.02 63.79 0 0.482784 0 41.237 0.154855 0 0 0.0182183 58.1071 0
+
+## ssd:f2fs:DWOL:4:bufferedio
+# ncpu secs works works/sec real.sec user.sec nice.sec sys.sec idle.sec iowait.sec irq.sec softirq.sec steal.sec guest.sec user.util nice.util sys.util idle.util iowait.util irq.util softirq.util steal.util guest.util
+
+4 29.999513 86579121.000000 2886017.501584 30.0789 1.47 0 43.4 0.18 0 0 0.01 63.87 0 1.34949 0 39.8421 0.165244 0 0 0.00918021 58.634 0
+
+## ssd:ext4:DWOL:3:bufferedio
+# ncpu secs works works/sec real.sec user.sec nice.sec sys.sec idle.sec iowait.sec irq.sec softirq.sec steal.sec guest.sec user.util nice.util sys.util idle.util iowait.util irq.util softirq.util steal.util guest.util
+
+3 29.998282 77790581.000000 2593167.897561 30.0756 1.45 0 47.6 0.12 0.01 0 0.01 33.79 0 1.74741 0 57.3632 0.144613 0.0120511 0 0.0120511 40.7207 0
+
+## ssd:ext4_no_jnl:DWOL:3:bufferedio
+# ncpu secs works works/sec real.sec user.sec nice.sec sys.sec idle.sec iowait.sec irq.sec softirq.sec steal.sec guest.sec user.util nice.util sys.util idle.util iowait.util irq.util softirq.util steal.util guest.util
+
+3 29.999565 117752183.000000 3925129.637434 30.0856 2.16 0 48.4 0.11 0 0 0.03 33.49 0 2.56563 0 57.489 0.130657 0 0 0.0356337 39.7791 0
+
+## ssd:xfs:DWOL:3:bufferedio
+# ncpu secs works works/sec real.sec user.sec nice.sec sys.sec idle.sec iowait.sec irq.sec softirq.sec steal.sec guest.sec user.util nice.util sys.util idle.util iowait.util irq.util softirq.util steal.util guest.util
+
+3 29.996701 47306467.000000 1577055.639362 30.0821 1.25 0 49.3 0.11 0 0 0 33.42 0 1.48668 0 58.6346 0.130828 0 0 0 39.7479 0
+
+## ssd:btrfs:DWOL:3:bufferedio
+# ncpu secs works works/sec real.sec user.sec nice.sec sys.sec idle.sec iowait.sec irq.sec softirq.sec steal.sec guest.sec user.util nice.util sys.util idle.util iowait.util irq.util softirq.util steal.util guest.util
+
+3 29.998940 28729185.000000 957673.327150 30.0947 0.85 0 50.28 0.11 0.02 0 0 33.85 0 0.998708 0 59.0765 0.129245 0.023499 0 0 39.7721 0
+
+## ssd:f2fs:DWOL:3:bufferedio
+# ncpu secs works works/sec real.sec user.sec nice.sec sys.sec idle.sec iowait.sec irq.sec softirq.sec steal.sec guest.sec user.util nice.util sys.util idle.util iowait.util irq.util softirq.util steal.util guest.util
+
+3 30.000621 92808790.000000 3093562.262222 30.071 1.56 0 49.12 0.11 0 0 0.01 33.49 0 1.85075 0 58.275 0.130502 0 0 0.0118638 39.7319 0
+
+## ssd:ext4:DWOL:2:bufferedio
+# ncpu secs works works/sec real.sec user.sec nice.sec sys.sec idle.sec iowait.sec irq.sec softirq.sec steal.sec guest.sec user.util nice.util sys.util idle.util iowait.util irq.util softirq.util steal.util guest.util
+
+2 30.001485 75326988.000000 2510775.316622 30.0693 1.46 0 53.42 0.05 0 0 0 4.89 0 2.44066 0 89.3012 0.0835841 0 0 0 8.17452 0
+
+## ssd:ext4_no_jnl:DWOL:2:bufferedio
+# ncpu secs works works/sec real.sec user.sec nice.sec sys.sec idle.sec iowait.sec irq.sec softirq.sec steal.sec guest.sec user.util nice.util sys.util idle.util iowait.util irq.util softirq.util steal.util guest.util
+
+2 30.000390 121931656.000000 4064335.764707 30.0675 2.38 0 53.9 0.05 0.01 0 0 3.55 0 3.97395 0 89.9983 0.0834864 0.0166973 0 0 5.92753 0
+
+## ssd:xfs:DWOL:2:bufferedio
+# ncpu secs works works/sec real.sec user.sec nice.sec sys.sec idle.sec iowait.sec irq.sec softirq.sec steal.sec guest.sec user.util nice.util sys.util idle.util iowait.util irq.util softirq.util steal.util guest.util
+
+2 30.000088 49567415.000000 1652242.320089 30.0682 1.56 0 54.87 0.05 0 0 0 3.45 0 2.60304 0 91.5568 0.0834307 0 0 0 5.75672 0
+
+## ssd:btrfs:DWOL:2:bufferedio
+# ncpu secs works works/sec real.sec user.sec nice.sec sys.sec idle.sec iowait.sec irq.sec softirq.sec steal.sec guest.sec user.util nice.util sys.util idle.util iowait.util irq.util softirq.util steal.util guest.util
+
+2 30.000010 33605140.000000 1120170.941274 30.0672 1.01 0 55.34 0.05 0 0 0 3.54 0 1.68502 0 92.3257 0.0834168 0 0 0 5.90591 0
+
+## ssd:f2fs:DWOL:2:bufferedio
+# ncpu secs works works/sec real.sec user.sec nice.sec sys.sec idle.sec iowait.sec irq.sec softirq.sec steal.sec guest.sec user.util nice.util sys.util idle.util iowait.util irq.util softirq.util steal.util guest.util
+
+2 30.000080 92596731.000000 3086549.469201 30.0662 1.88 0 54.74 0.05 0 0 0 3.28 0 3.13595 0 91.3094 0.0834028 0 0 0 5.47123 0
+
+## ssd:ext4:DWOL:1:bufferedio
+# ncpu secs works works/sec real.sec user.sec nice.sec sys.sec idle.sec iowait.sec irq.sec softirq.sec steal.sec guest.sec user.util nice.util sys.util idle.util iowait.util irq.util softirq.util steal.util guest.util
+
+1 30.000033 47633064.000000 1587767.053456 30.0675 1.45 0 28.58 0 0 0 0 0.03 0 4.82369 0 95.0765 0 0 0 0 0.0998004 0
+
+## ssd:ext4_no_jnl:DWOL:1:bufferedio
+# ncpu secs works works/sec real.sec user.sec nice.sec sys.sec idle.sec iowait.sec irq.sec softirq.sec steal.sec guest.sec user.util nice.util sys.util idle.util iowait.util irq.util softirq.util steal.util guest.util
+
+1 30.000018 64415474.000000 2147181.178358 30.0755 1.16 0 28.86 0 0 0 0 0.05 0 3.85767 0 95.9761 0 0 0 0 0.166279 0
+
+## ssd:xfs:DWOL:1:bufferedio
+# ncpu secs works works/sec real.sec user.sec nice.sec sys.sec idle.sec iowait.sec irq.sec softirq.sec steal.sec guest.sec user.util nice.util sys.util idle.util iowait.util irq.util softirq.util steal.util guest.util
+
+1 30.000020 30866646.000000 1028887.514075 30.0661 1.02 0 29.03 0 0 0 0 0.02 0 3.39209 0 96.5414 0 0 0 0 0.0665115 0
+
+## ssd:btrfs:DWOL:1:bufferedio
+# ncpu secs works works/sec real.sec user.sec nice.sec sys.sec idle.sec iowait.sec irq.sec softirq.sec steal.sec guest.sec user.util nice.util sys.util idle.util iowait.util irq.util softirq.util steal.util guest.util
+
+1 30.000018 21700823.000000 723360.332650 30.0659 0.64 0 29.39 0 0 0 0 0.03 0 2.12908 0 97.7711 0 0 0 0 0.0998004 0
+
+## ssd:f2fs:DWOL:1:bufferedio
+# ncpu secs works works/sec real.sec user.sec nice.sec sys.sec idle.sec iowait.sec irq.sec softirq.sec steal.sec guest.sec user.util nice.util sys.util idle.util iowait.util irq.util softirq.util steal.util guest.util
+
+1 30.000013 54799716.000000 1826656.408449 30.066 1.12 0 28.91 0 0 0 0 0.04 0 3.72464 0 96.1423 0 0 0 0 0.133023 0
+
+### NUM_TEST_CONF  = 20
