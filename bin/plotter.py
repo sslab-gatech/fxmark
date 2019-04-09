@@ -126,6 +126,7 @@ class Plotter(object):
             with open(data_file, "w") as out:
                 print("# %s:%s:%s:%s:*" % (media, fs, bench, iomode), file=out)
                 for d_kv in data:
+                    # self.UNIT = 1000000.0
                     d_kv = d_kv[1]
                     if int(d_kv["ncpu"]) > self.ncore:
                         break

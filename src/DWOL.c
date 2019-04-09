@@ -28,12 +28,15 @@ static int pre_work(struct worker *worker)
 	char test_root[PATH_MAX];
 	char file[PATH_MAX];
 	int fd, rc = 0;
+	int _pid = getpid();
 
+    printf("before create test root, p=%d", _pid);
 	/* create test root */
 	set_test_root(worker, test_root);
 	rc = mkdir_p(test_root);
 	if (rc) return rc;
 
+    printf("before create test file, p=%d", _pid);
 	/* create a test file */ 
 	snprintf(file, PATH_MAX, "%s/n_blk_wrt.dat", test_root);
 	if ((fd = open(file, O_CREAT | O_RDWR, S_IRWXU)) == -1)
@@ -83,8 +86,11 @@ static int main_work(struct worker *worker)
 	/* fsync */
 	fd = (int)worker->private[0];
 	for (iter = 0; !bench->stop; ++iter) {
-	  if (pwrite(fd, page, PAGE_SIZE, 0) != PAGE_SIZE)
-		goto err_out;
+        if (pwrite(fd, page, PAGE_SIZE, 0) != PAGE_SIZE) {
+            printf("err_out in main_work\n");
+            goto err_out;
+        }
+
 	}
 out:
 	close(fd);

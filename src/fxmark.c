@@ -214,10 +214,14 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 
+	printf("befor alloc bench\n");
 	/* create, initialize, and run a bench */ 
 	bench = alloc_bench(opt.ncore, opt.nbg);
+	printf("befor init_bench\n");
 	init_bench(bench, &opt);
+	printf("befor run_bench\n");
 	run_bench(bench);
+	printf("befor report_bench\n");
 	report_bench(bench, stdout);
 
 	return 0;

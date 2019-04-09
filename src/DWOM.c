@@ -112,6 +112,8 @@ static int main_work(struct worker *worker)
         if ((fd = open(path, O_CREAT|O_RDWR , S_IRWXU)) == -1)
                 goto err_out;
 
+        printf("file= %s", path);
+
         /* set flag with O_DIRECT if necessary*/
         if(bench->directio && (fcntl(fd, F_SETFL, O_DIRECT)==-1))
                 goto err_out;

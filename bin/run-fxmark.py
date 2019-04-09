@@ -24,10 +24,10 @@ def catch_ctrl_C(sig, frame):
 
 class Runner(object):
     # media path
-    LOOPDEV = "/dev/loopX"
-    NVMEDEV = "/dev/nvme0n1pX"
-    HDDDEV  = "/dev/sdX"
-    SSDDEV  = "/dev/sdY"
+    LOOPDEV = "/dev/sda11"
+    NVMEDEV = "/dev/sda11"
+    HDDDEV  = "/dev/sda11"
+    SSDDEV  = "/dev/sda11"
 
     # test core granularity
     CORE_FINE_GRAIN   = 0
@@ -45,7 +45,7 @@ class Runner(object):
         self.DEBUG_OUT     = False
 
         # bench config
-        self.DISK_SIZE     = "32G"
+        self.DISK_SIZE     = "7G"
         self.DURATION      = 30 # seconds
         self.DIRECTIOS     = ["bufferedio", "directio"]  # enable directio except tmpfs -> nodirectio 
         self.MEDIA_TYPES   = ["ssd", "hdd", "nvme", "mem"]
@@ -423,7 +423,7 @@ class Runner(object):
         if directio is '1':
             if fs is "tmpfs": 
                 print("# INFO: DirectIO under tmpfs disabled by default")
-                directio='0';
+                directio='0'
             else: 
                 print("# INFO: DirectIO Enabled")
 
@@ -438,6 +438,7 @@ class Runner(object):
                         "--profbegin", "\"%s\"" % self.perfmon_start,
                         "--profend",   "\"%s\"" % self.perfmon_stop,
                         "--proflog", self.perfmon_log])
+        print("cmd: "+cmd+ "\n")
         p = self.exec_cmd(cmd, self.redirect)
         if self.redirect:
             for l in p.stdout.readlines():
@@ -468,6 +469,7 @@ class Runner(object):
                     continue
                 self.log("## %s:%s:%s:%s:%s" % (media, fs, bench, nfg, dio))
                 self.pre_work()
+                print("pre_work done")
                 self.fxmark(media, fs, bench, ncore, nfg, nbg, dio)
                 self.post_work()
             self.log("### NUM_TEST_CONF  = %d" % (cnt + 1))
@@ -517,7 +519,7 @@ if __name__ == "__main__":
     run_config = [
         (Runner.CORE_FINE_GRAIN,
          PerfMon.LEVEL_LOW,
-         ("mem", "*", "DWOL", "80", "directio")),
+         ("hdd", "ext4", "DWOM", "*", "bufferedio")),
         # ("mem", "tmpfs", "filebench_varmail", "32", "directio")),
         # (Runner.CORE_COARSE_GRAIN,
         #  PerfMon.LEVEL_PERF_RECORD,

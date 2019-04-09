@@ -7,6 +7,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <pthread.h>
 
 #include "bench.h"
 #include "cpupol.h"
@@ -58,11 +59,13 @@ struct bench *alloc_bench(int ncpu, int nbg)
         bench = (struct bench *)shmem;
         bench->ncpu = ncpu; 
         bench->nbg  = nbg;
+        // why i can't reatch 4
         bench->workers = (struct worker*)(shmem + sizeof(*bench));
         for (i = 0; i < ncpu; ++i) {
                 worker = &bench->workers[i];
                 worker->bench = bench;
-                worker->id = seq_cores[i];
+                worker->id = i;
+//              backup :  worker->id = seq_cores[i];
 		worker->is_bg = i >= (ncpu - nbg);
         }
 
@@ -79,21 +82,30 @@ static void sighandler(int x)
 
 static void worker_main(void *arg)
 {
+//        static int _pid0 = getpid();
+        int _pid = getpid();
+        printf("in worker_main, p=%d\n", _pid);
         struct worker *worker = (struct worker*)arg;
         struct bench *bench = worker->bench;
         uint64_t s_clk = 1, s_us = 1;
         uint64_t e_clk = 0, e_us = 0;
         int err = 0;
 
-        /* set affinity */ 
-        setaffinity(worker->id);
+        while(access("stop.c",0) != -1);
 
+        /* set affinity */ 
+        // setaffinity(worker->id);
+        printf("before pre-work, p=%d\n", _pid);
         /* pre-work */
         if (bench->ops.pre_work) {
+                printf("before err cal, p=%d\n", _pid);
                 err = bench->ops.pre_work(worker);
-                if (err) goto err_out;
+                if (err) {
+                    printf("err in pre-work,err=%d\n",err);
+                    goto err_out;
+                }
         }
-
+        printf("pre-work done, p=%d\n", _pid);
         /* wait for start signal */ 
         worker->ready = 1;
         if (worker->id) {
@@ -108,12 +120,13 @@ static void worker_main(void *arg)
 			while (!w->ready)
 				nop_pause();
 		}
+		printf("wait for start signal done\n");
 		/* make things more deterministic */
 		sync();
 
 		/* start performance profiling */
 		if (bench->profile_start_cmd[0])
-			system(bench->profile_start_cmd);
+			//system(bench->profile_start_cmd);
 
                 /* ok, before running, set timer */
                 if (signal(SIGALRM, sighandler) == SIG_ERR) {
@@ -125,7 +138,8 @@ static void worker_main(void *arg)
                 bench->start = 1;
                 wmb();
         }
-        
+        printf("performance profiling done\n");
+
         /* start time */
         s_clk = rdtsc_beg();
         s_us = usec();
@@ -143,9 +157,10 @@ static void worker_main(void *arg)
 
 	/* stop performance profiling */
         if (!worker->id && bench->profile_stop_cmd[0])
-		system(bench->profile_stop_cmd);
+		//system(bench->profile_stop_cmd);
+        printf("performance profiling stopped\n");
 
-        /* post-work */ 
+        /* post-work */
         if (bench->ops.post_work)
                 err = bench->ops.post_work(worker);
 err_out:
@@ -167,23 +182,31 @@ static void wait(struct bench *bench)
 
 void run_bench(struct bench *bench)
 {
-        int i;
-	for (i = 1; i < bench->ncpu; ++i) {
-		/**
-		 * fork() is intentionally used instead of pthread
-		 * to avoid known scalability bottlenecks 
-		 * of linux virtual memory subsystem. 
-		 */ 
-		pid_t p = fork();
-		if (p < 0)
-			bench->workers[i].ret = errno;
-		else if (!p) {
-			worker_main(&bench->workers[i]);
-			exit(0);
-		}
-	}
-	worker_main(&bench->workers[0]);
-	wait(bench);
+    int i;
+    printf("in run_bench\n");
+    pthread_t thread[bench->ncpu];
+    int rc;
+    for (i = 1; i < bench->ncpu; ++i) {
+        /**
+         * fork() is intentionally used instead of pthread
+         * to avoid known scalability bottlenecks
+         * of linux virtual memory subsystem.
+         */
+    		pid_t p = fork();
+    		if (p < 0)
+    			bench->workers[i].ret = errno;
+    		else if (!p) {
+    			worker_main(&bench->workers[i]);
+    			exit(0);
+    		}
+//        rc = pthread_create(&thread[i], NULL, worker_main, &bench->workers[i]);
+//        if(rc) {
+//            printf("err %d\n", rc);
+//            exit(-1);
+//        }
+    }
+    worker_main(&bench->workers[0]);
+    wait(bench);
 }
 
 void report_bench(struct bench *bench, FILE *out)
