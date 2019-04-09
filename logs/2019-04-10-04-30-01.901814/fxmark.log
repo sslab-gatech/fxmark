@@ -1,0 +1,930 @@
+### SYSTEM         = Linux ubuntu 4.4.0-87-generic #110-Ubuntu SMP Tue Jul 18 12:55:35 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux
+### DISK_SIZE      = 7G
+### DURATION       = 30s
+### DIRECTIO       = bufferedio,directio
+### MEDIA_TYPES    = ssd,hdd,nvme,mem
+### FS_TYPES       = ext4,ext4_no_jnl,xfs,btrfs,f2fs
+### BENCH_TYPES    = DWAL,DWOL,DWOM,DWSL,MWRL,MWRM,MWCL,MWCM,MWUM,MWUL,DWTL,filebench_varmail,filebench_oltp,filebench_fileserver,dbench_client,MRPL,MRPM,MRPH,MRDM,MRDL,DRBH,DRBM,DRBL
+### NCORES         = 1,2,3,4,6,8,10,12,14,16,18
+### CORE_SEQ       = 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19
+
+
+### MODEL_NAME     = Intel Xeon E312xx (Sandy Bridge, IBRS update)
+### PHYSICAL_CHIPS = 20
+### CORE_PER_CHIP  = 1
+### SMT_LEVEL      = 1
+
+
+## hdd:ext4:DWOL:18:bufferedio
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=1816
+before pre-work, p=1816
+before err cal, p=1816
+before create test root, p=1816before create test file, p=1816pre-work done, p=1816
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=1818
+before pre-work, p=1818
+before err cal, p=1818
+before create test root, p=1818before create test file, p=1818pre-work done, p=1818
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=1837
+before pre-work, p=1837
+before err cal, p=1837
+before create test root, p=1837before create test file, p=1837pre-work done, p=1837
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=1824
+before pre-work, p=1824
+before err cal, p=1824
+before create test root, p=1824before create test file, p=1824pre-work done, p=1824
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=1835
+before pre-work, p=1835
+before err cal, p=1835
+before create test root, p=1835before create test file, p=1835pre-work done, p=1835
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=1836
+before pre-work, p=1836
+before err cal, p=1836
+before create test root, p=1836before create test file, p=1836pre-work done, p=1836
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=1827
+before pre-work, p=1827
+before err cal, p=1827
+before create test root, p=1827before create test file, p=1827pre-work done, p=1827
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=1821
+before pre-work, p=1821
+before err cal, p=1821
+before create test root, p=1821before create test file, p=1821pre-work done, p=1821
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=1817
+before pre-work, p=1817
+before err cal, p=1817
+before create test root, p=1817before create test file, p=1817pre-work done, p=1817
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=1819
+before pre-work, p=1819
+before err cal, p=1819
+before create test root, p=1819before create test file, p=1819pre-work done, p=1819
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=1820
+before pre-work, p=1820
+before err cal, p=1820
+before create test root, p=1820before create test file, p=1820pre-work done, p=1820
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=1831
+before pre-work, p=1831
+before err cal, p=1831
+before create test root, p=1831before create test file, p=1831pre-work done, p=1831
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=1834
+before pre-work, p=1834
+before err cal, p=1834
+before create test root, p=1834before create test file, p=1834pre-work done, p=1834
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=1822
+before pre-work, p=1822
+before err cal, p=1822
+before create test root, p=1822before create test file, p=1822pre-work done, p=1822
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=1815
+before pre-work, p=1815
+before err cal, p=1815
+before create test root, p=1815before create test file, p=1815pre-work done, p=1815
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=1840
+before pre-work, p=1840
+before err cal, p=1840
+before create test root, p=1840before create test file, p=1840pre-work done, p=1840
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=1838
+before pre-work, p=1838
+before err cal, p=1838
+before create test root, p=1838before create test file, p=1838pre-work done, p=1838
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=1814
+before pre-work, p=1814
+before err cal, p=1814
+before create test root, p=1814before create test file, p=1814pre-work done, p=1814
+wait for start signal done
+performance profiling done
+performance profiling stopped
+befor report_bench
+# ncpu secs works works/sec
+18 29.990920 89690424.000000 2990586.000539
+## hdd:ext4:DWOL:16:bufferedio
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=1914
+before pre-work, p=1914
+before err cal, p=1914
+before create test root, p=1914before create test file, p=1914pre-work done, p=1914
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=1919
+before pre-work, p=1919
+before err cal, p=1919
+before create test root, p=1919before create test file, p=1919pre-work done, p=1919
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=1929
+before pre-work, p=1929
+before err cal, p=1929
+before create test root, p=1929before create test file, p=1929pre-work done, p=1929
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=1913
+before pre-work, p=1913
+before err cal, p=1913
+before create test root, p=1913before create test file, p=1913pre-work done, p=1913
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=1922
+before pre-work, p=1922
+before err cal, p=1922
+before create test root, p=1922before create test file, p=1922pre-work done, p=1922
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=1912
+before pre-work, p=1912
+before err cal, p=1912
+before create test root, p=1912before create test file, p=1912pre-work done, p=1912
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=1916
+before pre-work, p=1916
+before err cal, p=1916
+before create test root, p=1916before create test file, p=1916pre-work done, p=1916
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=1911
+before pre-work, p=1911
+before err cal, p=1911
+before create test root, p=1911before create test file, p=1911pre-work done, p=1911
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=1915
+before pre-work, p=1915
+before err cal, p=1915
+before create test root, p=1915before create test file, p=1915pre-work done, p=1915
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=1925
+before pre-work, p=1925
+before err cal, p=1925
+before create test root, p=1925before create test file, p=1925pre-work done, p=1925
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=1928
+before pre-work, p=1928
+before err cal, p=1928
+before create test root, p=1928before create test file, p=1928pre-work done, p=1928
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=1921
+before pre-work, p=1921
+before err cal, p=1921
+before create test root, p=1921before create test file, p=1921pre-work done, p=1921
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=1920
+before pre-work, p=1920
+before err cal, p=1920
+before create test root, p=1920before create test file, p=1920pre-work done, p=1920
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=1917
+before pre-work, p=1917
+before err cal, p=1917
+before create test root, p=1917before create test file, p=1917pre-work done, p=1917
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=1918
+before pre-work, p=1918
+before err cal, p=1918
+before create test root, p=1918before create test file, p=1918pre-work done, p=1918
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=1910
+before pre-work, p=1910
+before err cal, p=1910
+before create test root, p=1910before create test file, p=1910pre-work done, p=1910
+wait for start signal done
+performance profiling done
+performance profiling stopped
+befor report_bench
+# ncpu secs works works/sec
+16 30.015876 88716605.000000 2955656.070420
+## hdd:ext4:DWOL:14:bufferedio
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2015
+before pre-work, p=2015
+before err cal, p=2015
+before create test root, p=2015before create test file, p=2015pre-work done, p=2015
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2012
+before pre-work, p=2012
+before err cal, p=2012
+before create test root, p=2012before create test file, p=2012pre-work done, p=2012
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2008
+before pre-work, p=2008
+before err cal, p=2008
+before create test root, p=2008before create test file, p=2008pre-work done, p=2008
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2007
+before pre-work, p=2007
+before err cal, p=2007
+before create test root, p=2007before create test file, p=2007pre-work done, p=2007
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2006
+before pre-work, p=2006
+before err cal, p=2006
+before create test root, p=2006before create test file, p=2006pre-work done, p=2006
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2001
+before pre-work, p=2001
+before err cal, p=2001
+before create test root, p=2001before create test file, p=2001pre-work done, p=2001
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2016
+before pre-work, p=2016
+before err cal, p=2016
+before create test root, p=2016before create test file, p=2016pre-work done, p=2016
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2009
+before pre-work, p=2009
+before err cal, p=2009
+before create test root, p=2009before create test file, p=2009pre-work done, p=2009
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2003
+before pre-work, p=2003
+before err cal, p=2003
+before create test root, p=2003before create test file, p=2003pre-work done, p=2003
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2002
+before pre-work, p=2002
+before err cal, p=2002
+before create test root, p=2002before create test file, p=2002pre-work done, p=2002
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2013
+before pre-work, p=2013
+before err cal, p=2013
+before create test root, p=2013before create test file, p=2013pre-work done, p=2013
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2005
+before pre-work, p=2005
+before err cal, p=2005
+before create test root, p=2005before create test file, p=2005pre-work done, p=2005
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2004
+before pre-work, p=2004
+before err cal, p=2004
+before create test root, p=2004before create test file, p=2004pre-work done, p=2004
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2000
+before pre-work, p=2000
+before err cal, p=2000
+before create test root, p=2000before create test file, p=2000pre-work done, p=2000
+wait for start signal done
+performance profiling done
+performance profiling stopped
+befor report_bench
+# ncpu secs works works/sec
+14 30.003293 88173698.000000 2938800.663322
+## hdd:ext4:DWOL:12:bufferedio
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2085
+before pre-work, p=2085
+before err cal, p=2085
+before create test root, p=2085before create test file, p=2085pre-work done, p=2085
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2101
+before pre-work, p=2101
+before err cal, p=2101
+before create test root, p=2101before create test file, p=2101pre-work done, p=2101
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2095
+before pre-work, p=2095
+before err cal, p=2095
+before create test root, p=2095before create test file, p=2095pre-work done, p=2095
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2099
+before pre-work, p=2099
+before err cal, p=2099
+before create test root, p=2099before create test file, p=2099pre-work done, p=2099
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2090
+before pre-work, p=2090
+before err cal, p=2090
+before create test root, p=2090before create test file, p=2090pre-work done, p=2090
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2087
+before pre-work, p=2087
+before err cal, p=2087
+before create test root, p=2087before create test file, p=2087pre-work done, p=2087
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2098
+before pre-work, p=2098
+before err cal, p=2098
+before create test root, p=2098before create test file, p=2098pre-work done, p=2098
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2089
+before pre-work, p=2089
+before err cal, p=2089
+before create test root, p=2089before create test file, p=2089pre-work done, p=2089
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2100
+before pre-work, p=2100
+before err cal, p=2100
+before create test root, p=2100before create test file, p=2100pre-work done, p=2100
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2088
+before pre-work, p=2088
+before err cal, p=2088
+before create test root, p=2088before create test file, p=2088pre-work done, p=2088
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2086
+before pre-work, p=2086
+before err cal, p=2086
+before create test root, p=2086before create test file, p=2086pre-work done, p=2086
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2084
+before pre-work, p=2084
+before err cal, p=2084
+before create test root, p=2084before create test file, p=2084pre-work done, p=2084
+wait for start signal done
+performance profiling done
+performance profiling stopped
+befor report_bench
+# ncpu secs works works/sec
+12 30.004648 88200447.000000 2939559.423433
+## hdd:ext4:DWOL:10:bufferedio
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2168
+before pre-work, p=2168
+before err cal, p=2168
+before create test root, p=2168before create test file, p=2168pre-work done, p=2168
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2163
+before pre-work, p=2163
+before err cal, p=2163
+before create test root, p=2163before create test file, p=2163pre-work done, p=2163
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2167
+before pre-work, p=2167
+before err cal, p=2167
+before create test root, p=2167before create test file, p=2167pre-work done, p=2167
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2172
+before pre-work, p=2172
+before err cal, p=2172
+before create test root, p=2172before create test file, p=2172pre-work done, p=2172
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2165
+before pre-work, p=2165
+before err cal, p=2165
+before create test root, p=2165before create test file, p=2165pre-work done, p=2165
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2173
+before pre-work, p=2173
+before err cal, p=2173
+before create test root, p=2173before create test file, p=2173pre-work done, p=2173
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2169
+before pre-work, p=2169
+before err cal, p=2169
+before create test root, p=2169before create test file, p=2169pre-work done, p=2169
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2164
+before pre-work, p=2164
+before err cal, p=2164
+before create test root, p=2164before create test file, p=2164pre-work done, p=2164
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2166
+before pre-work, p=2166
+before err cal, p=2166
+before create test root, p=2166before create test file, p=2166pre-work done, p=2166
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2162
+before pre-work, p=2162
+before err cal, p=2162
+before create test root, p=2162before create test file, p=2162pre-work done, p=2162
+wait for start signal done
+performance profiling done
+performance profiling stopped
+befor report_bench
+# ncpu secs works works/sec
+10 30.001143 90593295.000000 3019661.501224
+## hdd:ext4:DWOL:8:bufferedio
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2238
+before pre-work, p=2238
+before err cal, p=2238
+before create test root, p=2238before create test file, p=2238pre-work done, p=2238
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2241
+before pre-work, p=2241
+before err cal, p=2241
+before create test root, p=2241before create test file, p=2241pre-work done, p=2241
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2239
+before pre-work, p=2239
+before err cal, p=2239
+before create test root, p=2239before create test file, p=2239pre-work done, p=2239
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2237
+before pre-work, p=2237
+before err cal, p=2237
+before create test root, p=2237before create test file, p=2237pre-work done, p=2237
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2235
+before pre-work, p=2235
+before err cal, p=2235
+before create test root, p=2235before create test file, p=2235pre-work done, p=2235
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2236
+before pre-work, p=2236
+before err cal, p=2236
+before create test root, p=2236before create test file, p=2236pre-work done, p=2236
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2246
+before pre-work, p=2246
+before err cal, p=2246
+before create test root, p=2246before create test file, p=2246pre-work done, p=2246
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2234
+before pre-work, p=2234
+before err cal, p=2234
+before create test root, p=2234before create test file, p=2234pre-work done, p=2234
+wait for start signal done
+performance profiling done
+performance profiling stopped
+befor report_bench
+# ncpu secs works works/sec
+8 29.998885 91457943.000000 3048711.410441
+## hdd:ext4:DWOL:6:bufferedio
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2301
+before pre-work, p=2301
+before err cal, p=2301
+before create test root, p=2301before create test file, p=2301pre-work done, p=2301
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2302
+before pre-work, p=2302
+before err cal, p=2302
+before create test root, p=2302before create test file, p=2302pre-work done, p=2302
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2305
+before pre-work, p=2305
+before err cal, p=2305
+before create test root, p=2305before create test file, p=2305pre-work done, p=2305
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2303
+before pre-work, p=2303
+before err cal, p=2303
+before create test root, p=2303before create test file, p=2303pre-work done, p=2303
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2304
+before pre-work, p=2304
+before err cal, p=2304
+before create test root, p=2304before create test file, p=2304pre-work done, p=2304
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2300
+before pre-work, p=2300
+before err cal, p=2300
+before create test root, p=2300before create test file, p=2300pre-work done, p=2300
+wait for start signal done
+performance profiling done
+performance profiling stopped
+befor report_bench
+# ncpu secs works works/sec
+6 29.999777 86063461.000000 2868803.389981
+## hdd:ext4:DWOL:4:bufferedio
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2361
+before pre-work, p=2361
+before err cal, p=2361
+before create test root, p=2361before create test file, p=2361pre-work done, p=2361
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2362
+before pre-work, p=2362
+before err cal, p=2362
+before create test root, p=2362before create test file, p=2362pre-work done, p=2362
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2363
+before pre-work, p=2363
+before err cal, p=2363
+before create test root, p=2363before create test file, p=2363pre-work done, p=2363
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2360
+before pre-work, p=2360
+before err cal, p=2360
+before create test root, p=2360before create test file, p=2360pre-work done, p=2360
+wait for start signal done
+performance profiling done
+performance profiling stopped
+befor report_bench
+# ncpu secs works works/sec
+4 30.000046 84949796.000000 2831655.477601
+## hdd:ext4:DWOL:3:bufferedio
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2418
+before pre-work, p=2418
+before err cal, p=2418
+before create test root, p=2418before create test file, p=2418pre-work done, p=2418
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2417
+before pre-work, p=2417
+before err cal, p=2417
+before create test root, p=2417before create test file, p=2417pre-work done, p=2417
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2416
+before pre-work, p=2416
+before err cal, p=2416
+before create test root, p=2416before create test file, p=2416pre-work done, p=2416
+wait for start signal done
+performance profiling done
+performance profiling stopped
+befor report_bench
+# ncpu secs works works/sec
+3 30.000084 81500896.000000 2716688.896419
+## hdd:ext4:DWOL:2:bufferedio
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2470
+before pre-work, p=2470
+before err cal, p=2470
+before create test root, p=2470before create test file, p=2470pre-work done, p=2470
+performance profiling done
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2469
+before pre-work, p=2469
+before err cal, p=2469
+before create test root, p=2469before create test file, p=2469pre-work done, p=2469
+wait for start signal done
+performance profiling done
+performance profiling stopped
+befor report_bench
+# ncpu secs works works/sec
+2 30.000010 73774428.000000 2459146.739299
+## hdd:ext4:DWOL:1:bufferedio
+befor alloc bench
+befor init_bench
+befor run_bench
+in run_bench
+in worker_main, p=2519
+before pre-work, p=2519
+before err cal, p=2519
+before create test root, p=2519before create test file, p=2519pre-work done, p=2519
+wait for start signal done
+performance profiling done
+performance profiling stopped
+befor report_bench
+# ncpu secs works works/sec
+1 30.000238 45867447.000000 1528902.770705
+### NUM_TEST_CONF  = 11
