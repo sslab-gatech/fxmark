@@ -49,8 +49,8 @@ class Runner(object):
         self.DURATION      = 30 # seconds
         self.DIRECTIOS     = ["bufferedio", "directio"]  # enable directio except tmpfs -> nodirectio 
         self.MEDIA_TYPES   = ["ssd", "hdd", "nvme", "mem"]
-        self.FS_TYPES      = [
-#        self.FS_TYPES      = ["tmpfs",
+#        self.FS_TYPES      = [
+        self.FS_TYPES      = ["tmpfs",
                               "ext4", "ext4_no_jnl",
                               "xfs",
                               "btrfs", "f2fs",
