@@ -149,6 +149,10 @@ static void worker_main(void *arg)
         if (bench->ops.post_work)
                 err = bench->ops.post_work(worker);
 err_out:
+        if (!worker->id)
+                bench->start = 1;
+
+        worker->ready = 1;
         worker->ret = err;
         worker->usecs = e_us - s_us;
         wmb();
