@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 #include "rdtsc.h"
 
 #include <err.h>

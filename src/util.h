@@ -1,3 +1,4 @@
+/* SPDX-License-Identifier: MIT */
 #ifndef __UTIL_H__
 #define __UTIL_H__
 

@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 /**
  * Nanobenchmark: Same path resolution
  *   PR. PROCESS = {fstat in pre-constructed path}

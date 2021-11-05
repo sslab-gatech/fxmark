@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 /**
  * Nanobenchmark: Read operation
  *   RD. PROCESS = {read entries of its private directory}

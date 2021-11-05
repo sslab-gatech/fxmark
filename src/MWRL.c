@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 #pragma GCC diagnostic ignored "-Wcomment"
 /**
  * Nanobenchmark: META

@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 /**
  * Nanobenchmark: ADD
  *   IA. PROCESS = {create empty files at /test/$PROCESS}

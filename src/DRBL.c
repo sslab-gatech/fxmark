@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 /**
  * Nanobenchmark: Read operation
  *   RF. PROCESS = {read private file}

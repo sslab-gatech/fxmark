@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 #!/bin/bash
 
 # $1-> directory to mount first partition

@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 /**
  * Nanobenchmark: META
  *   MU. PROCESS = {overwrite a non-overlapping region of /test/test.file}

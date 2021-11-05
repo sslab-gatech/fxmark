@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 /**
  * Nanobenchmark: ADD
  *   JC. PROCESS = {ovewrite file and sync. at /test/$PROCESS}

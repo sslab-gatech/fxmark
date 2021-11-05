@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 /**
  * Nanobenchmark: ADD
  *   BA. PROCESS = {append files at /test/$PROCESS}

@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 /**
  * Nanobenchmark: Read operation with a backgroud inhibitor
  *   RSF. PROCESS = {read the same page of /test/test.file}

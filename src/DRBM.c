@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 /**
  * Nanobenchmark: Read operation
  *   RSF. PROCESS = {read a non-overlapping region of /test/test.file}

@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 /**
  * Nanobenchmark: block write
  *   BW. PROCESS = {ovewrite file at /test/$PROCESS}
